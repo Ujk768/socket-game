@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Square from "./components/Square/Square";
+import PlayOnlineBtn from "./components/PlayOnlineBtn/PlayOnlineBtn";
 
 function App() {
   const elements = [
@@ -11,6 +12,7 @@ function App() {
   const [gameState, setGameState] = useState(elements);
   const [currentPlayer, setCurrentPlayer] = useState("circle");
   const [finishedState, setFinishedState] = useState(false);
+  const [playOnline, setPlayOnline] = useState(false);
 
   const checkWinnner = () => {
     // row winner check
@@ -70,6 +72,7 @@ function App() {
     setFinishedState(winner);
   }, [gameState]);
 
+  if (!playOnline) return <PlayOnlineBtn />;
   return (
     <div className="main-wrapper">
       <div className="player-wrapper">
@@ -93,8 +96,12 @@ function App() {
           })
         )}
       </div>
-      {finishedState && finishedState==="draw" && <h2>It is a {finishedState.toUpperCase()}</h2>}
-      {finishedState && finishedState!="draw" && <h2>{finishedState.toUpperCase()} won the game</h2>}
+      {finishedState && finishedState === "draw" && (
+        <h2>It's a {finishedState.toUpperCase()}</h2>
+      )}
+      {finishedState && finishedState != "draw" && (
+        <h2>{finishedState.toUpperCase()} won the game</h2>
+      )}
     </div>
   );
 }
